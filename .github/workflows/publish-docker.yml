@@ -18,7 +18,8 @@ jobs:
 
       - name: Build and push docker image
         uses: docker/build-push-action@v6
-        context: .
-        push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/my-python-app:latest
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/my-python-app:latest
         # run: echo "Docker image 'my-python-app:latest' is ready to use"
