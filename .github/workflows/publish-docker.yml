@@ -45,7 +45,7 @@ jobs:
       matrix:
         python-version: [":3.10", ":3.11", ":3.12"]
     container: 
-      image: ${{ vars.DOCKER_HUB_USERNAME }}/my-python-app:${{ python-version }}
+      image: ${{ vars.DOCKER_HUB_USERNAME }}/my-python-app:${{ matrix.python-version }}
       credentials:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_TOKEN }}
