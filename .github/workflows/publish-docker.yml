@@ -64,18 +64,18 @@ jobs:
       #   run: docker pull $DOCKER_USER_NAME/my-python-app:latest
 
       - name: Run the container
-        run: docker run $DOCKER_USER_NAME/my-python-app:latest > test-report.log
+        run: docker run $DOCKER_USER_NAME/my-python-app:latest > test-report${{ matrix.python-version }}.log
         continue-on-error: true
 
       - name: Upload to artifacts
         uses: actions/upload-artifact@v4
         with:
           name: container-execution-report
-          path: test-report.log
+          path: test-report${{ matrix.python-version }}.log
 
       - name: Calculate metric
         id: set_msg
-        run: echo "log_count=$(wc -l < test-report.log)" >> $GITHUB_OUTPUT
+        run: echo "log_count=$(wc -l < test-report${{ matrix.python-version }}.log)" >> $GITHUB_OUTPUT
   print-metric:
     needs: test-container
     runs-on: ubuntu-latest
