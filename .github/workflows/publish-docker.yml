@@ -17,13 +17,18 @@ jobs:
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
         with:
-          username: $USER_NAME
-          password: $DOCKER_PASSWORD
+          username: ${{ env.DOCKER_USER_NAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
+
+      - name: Run Debug
+        run: echo "Successfully logged in with $DOCKER_USER_NAME $DOCKER_PASSWORD"
 
       - name: Build and push docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: $USER_NAME/my-python-app:latest
-        # run: echo "Docker image 'my-python-app:latest' is ready to use"
+          tags: $ {{ env.DOCKER_USER_NAME }}/my-python-app:latest
+
+      - name: Success message
+        run: echo "Docker image 'my-python-app:latest' is ready to use"
