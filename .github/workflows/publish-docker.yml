@@ -34,6 +34,7 @@ jobs:
           context: .
           push: true
           tags: ${{ env.DOCKER_USER_NAME }}/my-python-app:${{ matrix.python-version }}
+          build-args: PYTHON_VERSION = ${{ matrix.python-version }}
 
       - name: Success message
         run: echo "Docker image 'my-python-app:latest' is ready to use"
