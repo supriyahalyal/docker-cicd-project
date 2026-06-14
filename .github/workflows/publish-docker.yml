@@ -81,7 +81,9 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Show final log metric
-        run: echo "Final line count is ${{ needs.test-container.outputs.total_lines }}"
+        run: |
+          echo "Python ${{ matrix.python-version }} execution line count was ${{ needs.test-container.outputs.total_lines }}"
+
 
       - name: Broadcast deployment status
         if: github.actor == 'supriyahalyal'
