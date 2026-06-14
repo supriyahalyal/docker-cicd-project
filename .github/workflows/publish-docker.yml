@@ -39,10 +39,10 @@ jobs:
     needs: build-and-ship
     runs-on: ubuntu-latest
     container: 
-      image: ${{env.DOCKER_USER_NAME}}/my-python-app
+      image: ${{ secrets.DOCKER_HUB_USERNAME }}/my-python-app
       credentials:
-        username: ${{ env.DOCKER_USER_NAME }}
-        password: ${{ env.DOCKER_PASSWORD }}
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
     outputs: 
       total_lines: "${{ steps.set_msg.outputs.log_count }}"
     steps:
