@@ -5,6 +5,7 @@ on:
 
 env:
   DOCKER_USER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
 
 jobs:
   build-and-ship:
@@ -40,8 +41,6 @@ jobs:
     steps:
       - name: Test container job
         uses: docker/login-action@v3
-        env:
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
         with:
           username: ${{ env.DOCKER_USER_NAME }}
           password: ${{ env.DOCKER_PASSWORD }}
@@ -51,4 +50,3 @@ jobs:
 
       - name: Run the container
         run: docker run $DOCKER_USER_NAME/my-python-app:latest
-        
