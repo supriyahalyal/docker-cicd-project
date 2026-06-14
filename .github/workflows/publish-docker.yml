@@ -3,11 +3,12 @@ on:
   push:
     branches: ["main"]
 
+env:
+  DOCKER_USER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+
 jobs:
   build-and-ship:
     runs-on: ubuntu-latest
-    env:
-      DOCKER_USER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}
     steps:
       - name: checkout code
         uses: actions/checkout@v3
@@ -32,3 +33,7 @@ jobs:
 
       - name: Success message
         run: echo "Docker image 'my-python-app:latest' is ready to use"
+  
+  # test-container:
+  #   needs: build-and-ship
+  #   runs-on: ubuntu-latest
