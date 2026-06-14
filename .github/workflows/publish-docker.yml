@@ -39,7 +39,7 @@ jobs:
     needs: build-and-ship
     runs-on: ubuntu-latest
     container: 
-      image: ${{ secrets.DOCKER_HUB_USERNAME }}/my-python-app
+      image: ${{ secrets.DOCKER_HUB_USERNAME }}/my-python-app:latest
       credentials:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_TOKEN }}
