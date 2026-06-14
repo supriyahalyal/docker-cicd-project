@@ -15,11 +15,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-        run: echo "Logged into docker with credentials username" # ${{secrets.DOCKER_HUB_USERNAME}} password {{secrets.DOCKER_HUB_TOKEN}}"
 
       - name: Build and push docker image
         uses: docker/build-push-action@v6
         context: .
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/my-python-app:latest
-        run: echo "Docker image 'my-python-app:latest' is ready to use"
+        # run: echo "Docker image 'my-python-app:latest' is ready to use"
