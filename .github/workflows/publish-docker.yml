@@ -38,21 +38,26 @@ jobs:
   test-container:
     needs: build-and-ship
     runs-on: ubuntu-latest
+    container: 
+      image: ${{env.DOCKER_USER_NAME}}/my-python-app
+      credentials:
+        username: ${{ env.DOCKER_USER_NAME }}
+        password: ${{ env.DOCKER_PASSWORD }}
     outputs: 
       total_lines: "${{ steps.set_msg.outputs.log_count }}"
     steps:
-      - name: Test container job
-        uses: docker/login-action@v3
-        with:
-          username: ${{ env.DOCKER_USER_NAME }}
-          password: ${{ env.DOCKER_PASSWORD }}
+      # - name: Test container job
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ env.DOCKER_USER_NAME }}
+      #     password: ${{ env.DOCKER_PASSWORD }}
 
-      - name: Pull the image
-        run: docker pull $DOCKER_USER_NAME/my-python-app:latest
+      # - name: Pull the image
+      #   run: docker pull $DOCKER_USER_NAME/my-python-app:latest
 
-      - name: Run the container
-        run: docker run $DOCKER_USER_NAME/my-python-app:latest > test-report.log
-        continue-on-error: true
+      # - name: Run the container
+      #   run: docker run $DOCKER_USER_NAME/my-python-app:latest > test-report.log
+      #   continue-on-error: true
 
       - name: Upload to artifacts
         uses: actions/upload-artifact@v4
