@@ -34,6 +34,20 @@ jobs:
       - name: Success message
         run: echo "Docker image 'my-python-app:latest' is ready to use"
   
-  # test-container:
-  #   needs: build-and-ship
-  #   runs-on: ubuntu-latest
+  test-container:
+    needs: build-and-ship
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test container job
+        uses: docker/login-action@v3
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
+        with:
+          username: ${{ env.DOCKER_USER_NAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
+
+      - name: Pull the image
+        run: docker pull $DOCKER_USER_NAME/my-python-app:latest
+
+      - name: Run the container
+        run: docker run my-python-app:latest -t my-app
