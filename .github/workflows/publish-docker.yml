@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [":3.10", ":3.11", ":3.12"]
+        python-version: ["3.10", "3.11", "3.12"]
     steps:
       - name: checkout code
         uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [":3.10", ":3.11", ":3.12"]
+        python-version: ["3.10", "3.11", "3.12"]
     container: 
       image: ${{ vars.DOCKER_HUB_USERNAME }}/my-python-app:${{ matrix.python-version }}
       credentials:
