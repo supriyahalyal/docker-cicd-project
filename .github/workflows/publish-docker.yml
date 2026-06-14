@@ -50,4 +50,4 @@ jobs:
         run: docker pull $DOCKER_USER_NAME/my-python-app:latest
 
       - name: Run the container
-        run: docker run --name my-app my-python-app:latest
+        run: docker run my-python-app:latest
