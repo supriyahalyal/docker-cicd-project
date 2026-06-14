@@ -11,6 +11,7 @@ jobs:
   build-and-ship:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
     steps:
@@ -44,6 +45,7 @@ jobs:
     needs: build-and-ship
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
     container: 
@@ -63,22 +65,26 @@ jobs:
       # - name: Pull the image
       #   run: docker pull $DOCKER_USER_NAME/my-python-app:latest
 
-      - name: Run the container
-        run: docker run $DOCKER_USER_NAME/my-python-app:latest > test-report$.log
-        continue-on-error: true
+      - name: Run the application script
+        # We invoke python directly since we are already inside the container box!
+        run: python /app/app.py > test-report.log
 
       - name: Upload to artifacts
         uses: actions/upload-artifact@v4
         with:
           name: container-execution-report-${{ matrix.python-version }}
-          path: test-report$.log
+          path: test-report.log
 
       - name: Calculate metric
         id: set_msg
-        run: echo "log_count=$(wc -l < test-report$.log)" >> $GITHUB_OUTPUT
+        run: echo "log_count=$(wc -l < test-report.log)" >> $GITHUB_OUTPUT
   print-metric:
     needs: test-container
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
     steps: 
       - name: Show final log metric
         run: |
