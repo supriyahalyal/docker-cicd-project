@@ -8,7 +8,8 @@ init(autoreset=True)
 urls = [
     "https://httpbin.org/status/200",
     "https://httpbin.org/status/404",
-    "https://httpbin.org/status/400"
+    "https://httpbin.org/status/400",
+    "https://httpbin.org/status/201",
 ]
 
 for url in urls:
